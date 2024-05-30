@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    image: node:latest
+    container_name: node_app
+    restart: always
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=docker
+    command: ["npm", "start"]
+
+  db:
+    image: mysql:latest
+    container_name: mysql_db
+    restart: always
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=docker
+    ports:
+      - "3306:3306"
